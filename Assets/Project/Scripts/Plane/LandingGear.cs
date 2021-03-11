@@ -26,11 +26,11 @@ public class LandingGear : MonoBehaviour
 
     public float speed = 0.5f;
 
-    private Airplane airplane;
+    private AirplaneOld airplane;
 
     void Start()
     {
-        airplane = GetComponent<Airplane>();
+        airplane = GetComponent<AirplaneOld>();
     }
 
     void Update()

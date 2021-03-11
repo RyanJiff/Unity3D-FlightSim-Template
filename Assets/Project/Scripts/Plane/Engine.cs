@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿//
+// Copyright (c) Ryan Jiffri. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for details.
+//
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,7 +19,6 @@ public class Engine : MonoBehaviour
     public bool ignition = false;
     [Space]
     public float maxThrust = 3000;
-    public float yawFactor = 0.005f;
     public AnimationCurve thrustAirspeedCurve;
     public Transform engineTransform;
     [Range(0.0f, 1.0f)]
@@ -56,7 +60,6 @@ public class Engine : MonoBehaviour
         if (rigid != null)
         {
             rigid.AddForceAtPosition(engineTransform.forward * currentPower * maxThrust * thrustAirspeedCurve.Evaluate(rigid.velocity.magnitude * msToKnots), engineTransform.position, ForceMode.Force);
-            rigid.AddForceAtPosition(-engineTransform.right * currentPower * maxThrust * yawFactor, engineTransform.position, ForceMode.Force);
             currentThrust = currentPower * maxThrust * thrustAirspeedCurve.Evaluate(rigid.velocity.magnitude * msToKnots);
         }
         if (engineAnimationMesh)

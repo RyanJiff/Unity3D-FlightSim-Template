@@ -1,25 +1,32 @@
-﻿using UnityEngine;
+﻿//
+// Copyright (c) Brian Hernandez. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for details.
+//
+
+using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-public class Airplane : MonoBehaviour
+[System.Serializable]
+public class ControlSurfaces
 {
-	/*
-	 * Main airplane driver class
-	 */
-
-	[Header("Mouse Yoke")]
-	public bool mouseYoke = true;
-	public float deadZone = 0.05f;
-	[Space]
-
-	[Header("Control Surfaces")]
 	public ControlSurface elevator;
 	public ControlSurface aileronLeft;
 	public ControlSurface aileronRight;
 	public ControlSurface rudder;
+}
+public class AirplaneOld : MonoBehaviour
+{
+
+	[Header("Mouse Yoke")]
+	public bool mouseYoke = true;
+	public float deadZone = 0.1f;
 	[Space]
 
+	[Header("Control Surfaces")]
+	public ControlSurfaces controlSurfaces;
+	[Space]
+	
 	[Header("Engines")]
 	public Engine engine;
 	[Space]
@@ -44,7 +51,7 @@ public class Airplane : MonoBehaviour
 
 	public Rigidbody Rigidbody { get; internal set; }
 	private LandingGear landingGear;
-
+	
 	private float throttle = 0.0f;
 	private bool yawDefined = false;
 
@@ -55,7 +62,7 @@ public class Airplane : MonoBehaviour
 	[Header("Debug")]
 	public bool grounded = true;
 	[SerializeField]
-	public float elevatorTrim = 0.10f;
+	public float elevatorTrim = 0.2f;
 
 	private void Awake()
 	{
@@ -74,16 +81,17 @@ public class Airplane : MonoBehaviour
 
 	private void Start()
 	{
-		if (elevator == null)
+		if (controlSurfaces.elevator == null)
 			Debug.LogWarning(name + ": Airplane missing elevator!");
-		if (aileronLeft == null)
+		if (controlSurfaces.aileronLeft == null)
 			Debug.LogWarning(name + ": Airplane missing left aileron!");
-		if (aileronRight == null)
+		if (controlSurfaces.aileronRight == null)
 			Debug.LogWarning(name + ": Airplane missing right aileron!");
-		if (rudder == null)
+		if (controlSurfaces.rudder == null)
 			Debug.LogWarning(name + ": Airplane missing rudder!");
 		if (engine == null)
 			Debug.LogWarning(name + ": Airplane missing engine!");
+		
 
 		try
 		{
@@ -97,6 +105,7 @@ public class Airplane : MonoBehaviour
 		}
 	}
 
+	// Update is called once per frame
 	void Update()
 	{
 
@@ -105,21 +114,21 @@ public class Airplane : MonoBehaviour
 			mouseYoke = !mouseYoke;
 		}
 
-		if (elevator != null)
+		if (controlSurfaces.elevator != null)
 		{
-			elevator.targetDeflection = Mathf.Clamp(-Input.GetAxis("Vertical") - MouseControlY() + elevatorTrim, -1, 1);
+			controlSurfaces.elevator.targetDeflection = Mathf.Clamp(-Input.GetAxis("Vertical") - MouseControlY() + elevatorTrim , -1, 1);
 		}
-		if (aileronLeft != null)
+		if (controlSurfaces.aileronLeft != null)
 		{
-			aileronLeft.targetDeflection = Mathf.Clamp(-Input.GetAxis("Horizontal") - MouseControlX(), -1, 1);
+			controlSurfaces.aileronLeft.targetDeflection = Mathf.Clamp(-Input.GetAxis("Horizontal") - MouseControlX(), -1, 1);
 		}
-		if (aileronRight != null)
+		if (controlSurfaces.aileronRight != null)
 		{
-			aileronRight.targetDeflection = Mathf.Clamp(Input.GetAxis("Horizontal") + MouseControlX(), -1, 1);
+			controlSurfaces.aileronRight.targetDeflection = Mathf.Clamp(Input.GetAxis("Horizontal") + MouseControlX(), -1, 1);
 		}
-		if (rudder != null && yawDefined)
+		if (controlSurfaces.rudder != null && yawDefined)
 		{
-			rudder.targetDeflection = Input.GetAxis("Yaw");
+			controlSurfaces.rudder.targetDeflection = Input.GetAxis("Yaw");
 
 			foreach (WheelCollider c in steeringWheels)
 			{
@@ -153,7 +162,6 @@ public class Airplane : MonoBehaviour
 			foreach (WheelCollider w in brakeWheels)
 			{
 				w.brakeTorque = 0;
-				//we have to give the motor some torque when not braking so it does not lock up and go into sleep state.
 				w.motorTorque = 0.00000001f;
 			}
 		}
@@ -186,12 +194,12 @@ public class Airplane : MonoBehaviour
 		pos = ProjectPointOnPlane(Vector3.up, Vector3.zero, transform.right);
 		roll = SignedAngle(transform.right, pos, transform.forward);
 
+		
+
+
 		CalculateDrag();
 	}
 
-	/// <summary>
-	/// Simple drag changing formula, called to check if gear is down or up.
-	/// </summary>
 	void CalculateDrag()
 	{
 		if (landingGear)
@@ -254,6 +262,26 @@ public class Airplane : MonoBehaviour
 		return angle;
 	}
 
+	private void OnGUI()
+	{
+		GUIStyle style = new GUIStyle();
+		style.fontSize = 16;
+		style.fontStyle = FontStyle.Bold;
+
+		
+		GUI.Label(new Rect(10, 40, 300, 20), string.Format("Speed: {0:0} kn", AirSpeed()), style);
+		GUI.Label(new Rect(10, 60, 300, 20), string.Format("Throttle: {0:0}%", throttle * 100.0f), style);
+		GUI.Label(new Rect(10, 80, 300, 20), string.Format("RPM: {0:0}", engine.GetRPM()), style);
+		GUI.Label(new Rect(10, 100, 300, 20), string.Format("VSI: {0:0} Feet Per Minute", VerticalSpeed()), style);
+
+		GUI.Label(new Rect(10, 140, 300, 20), "Throttle Control (1,2) Change View (C) Engine Toggle (I) Toggle Mouse Yoke (Y)", style);
+		GUI.Label(new Rect(10, 160, 400, 20), "Controls: Elevator(W,S) Aileron(A,D) Rudder(Q,E) Trim(-,+) Brakes(B)", style);
+		GUI.Label(new Rect(10, 180, 300, 20), "(BACKSPACE) to retry, (ESC) to exit", style);
+		GUI.Label(new Rect(10, 200, 300, 20), string.Format("Elevator Trim: {0:0.00} ", elevatorTrim), style);
+		
+
+	}
+
 	public float AirSpeed()
 	{
 		const float msToKnots = 1.94384f;
@@ -266,8 +294,8 @@ public class Airplane : MonoBehaviour
 
 	void MouseControlDebug()
 	{
-		Debug.Log("Roll: " + ((Input.mousePosition.x * 2 / Screen.width) - 1));
-		Debug.Log("Pitch: " + ((Input.mousePosition.y * 2 / Screen.height) - 1));
+		Debug.Log("Roll: " + ((Input.mousePosition.x*2 / Screen.width) - 1));
+		Debug.Log("Pitch: " + ((Input.mousePosition.y*2 / Screen.height) - 1));
 	}
 
 	float MouseControlX()
@@ -278,7 +306,7 @@ public class Airplane : MonoBehaviour
 			return xPoint;
 		}
 		else return 0;
-
+		
 	}
 	float MouseControlY()
 	{
@@ -288,25 +316,6 @@ public class Airplane : MonoBehaviour
 			return yPoint;
 		}
 		else return 0;
-	}
-	private void OnGUI()
-	{
-		GUIStyle style = new GUIStyle();
-		style.fontSize = 16;
-		style.fontStyle = FontStyle.Bold;
-
-
-		GUI.Label(new Rect(10, 40, 300, 20), string.Format("Speed: {0:0} kn", AirSpeed()), style);
-		GUI.Label(new Rect(10, 60, 300, 20), string.Format("Throttle: {0:0}%", throttle * 100.0f), style);
-		GUI.Label(new Rect(10, 80, 300, 20), string.Format("RPM: {0:0}", engine.GetRPM()), style);
-		GUI.Label(new Rect(10, 100, 300, 20), string.Format("VSI: {0:0} Feet Per Minute", VerticalSpeed()), style);
-
-		GUI.Label(new Rect(10, 140, 300, 20), "Throttle Control (1,2) Look Back (C) Engine Toggle (I) Toggle Mouse Yoke (Y)", style);
-		GUI.Label(new Rect(10, 160, 400, 20), "Controls: Elevator(W,S) Aileron(A,D) Rudder(Q,E) Trim(-,+) Brakes(B)", style);
-		GUI.Label(new Rect(10, 180, 300, 20), "(BACKSPACE) to retry, (ESC) to exit", style);
-		GUI.Label(new Rect(10, 200, 300, 20), string.Format("Elevator Trim: {0:0.00} ", elevatorTrim), style);
-
-
 	}
 
 }
