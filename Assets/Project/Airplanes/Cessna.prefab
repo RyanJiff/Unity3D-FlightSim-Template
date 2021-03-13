@@ -1,106 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1298118204
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1298118208}
-  - component: {fileID: 1298118207}
-  - component: {fileID: 1298118206}
-  - component: {fileID: 1298118205}
-  m_Layer: 0
-  m_Name: MainCamera
-  m_TagString: MainCamera
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1298118208
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1298118204}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 700183220448379826}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!20 &1298118207
-Camera:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1298118204}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_projectionMatrixMode: 1
-  m_GateFitMode: 2
-  m_FOVAxisMode: 0
-  m_SensorSize: {x: 36, y: 24}
-  m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: 0.3
-  far clip plane: 10000
-  field of view: 60
-  orthographic: 0
-  orthographic size: 5
-  m_Depth: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
---- !u!81 &1298118206
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1298118204}
-  m_Enabled: 1
---- !u!114 &1298118205
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1298118204}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c026c0bc2ae7014395d055eb2b7b196, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 700183220448379826}
-  offsets:
-  - {x: 0, y: 2, z: 1}
-  lookOffsets:
-  - {x: 0, y: 2, z: 0}
 --- !u!1 &54022260449321765
 GameObject:
   m_ObjectHideFlags: 0
@@ -1897,6 +1796,7 @@ GameObject:
   - component: {fileID: 8038808088140020706}
   - component: {fileID: 223410879465083006}
   - component: {fileID: 3610641168518808245}
+  - component: {fileID: 500811927}
   m_Layer: 0
   m_Name: Cessna
   m_TagString: Untagged
@@ -1920,7 +1820,6 @@ Transform:
   - {fileID: 4052412139788829589}
   - {fileID: 2394970853438303128}
   - {fileID: 803359499495336817}
-  - {fileID: 1298118208}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1960,7 +1859,6 @@ MonoBehaviour:
   rudder: {fileID: 325160951958704709}
   engine: {fileID: 3610641168518808245}
   baseDrag: 0.01
-  extendedGearDrag: 0.01
   brakeWheels:
   - {fileID: 2032107217080702878}
   - {fileID: 7360238025164445382}
@@ -1971,6 +1869,9 @@ MonoBehaviour:
   maxSteerAngle: 20
   invertedSteering: 0
   centerOfMassTransform: {fileID: 4568728010257018326}
+  throttle: 0
+  pitch: 0
+  roll: 0
   grounded: 1
   elevatorTrim: 0.2
 --- !u!114 &3610641168518808245
@@ -2044,6 +1945,24 @@ MonoBehaviour:
   engineAnimationMesh: {fileID: 1158851995573238807}
   currentThrust: 0
   currentPower: 0
+--- !u!114 &500811927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4606290942689096097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2074926c9349d9d4f9dc301469957a99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wheels:
+  - {fileID: 2032107217080702878}
+  - {fileID: 6034039177244138207}
+  - {fileID: 7360238025164445382}
+  wheelVisualizerPrefab: {fileID: 4216227330857642, guid: b377d0fdf6ee1744f9f2dd9dbcd62592,
+    type: 3}
 --- !u!1 &4754555668456180466
 GameObject:
   m_ObjectHideFlags: 0
@@ -3319,7 +3238,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 803359499495336817}
-  - component: {fileID: 9079072312598042093}
   m_Layer: 0
   m_Name: Gears
   m_TagString: Untagged
@@ -3344,24 +3262,6 @@ Transform:
   m_Father: {fileID: 700183220448379826}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9079072312598042093
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8510588650348620403}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2074926c9349d9d4f9dc301469957a99, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wheels:
-  - {fileID: 2032107217080702878}
-  - {fileID: 7360238025164445382}
-  - {fileID: 6034039177244138207}
-  wheelVisualizerPrefab: {fileID: 4216227330857642, guid: b377d0fdf6ee1744f9f2dd9dbcd62592,
-    type: 3}
 --- !u!1 &8513884270400985899
 GameObject:
   m_ObjectHideFlags: 0

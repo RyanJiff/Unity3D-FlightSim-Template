@@ -67,7 +67,6 @@ public class Engine : MonoBehaviour
             engineAnimationMesh.Rotate(0, 0, RPM * 6f * Time.fixedDeltaTime);
         }
     }
-
     void Update()
     {
         if (ignition)
@@ -78,21 +77,16 @@ public class Engine : MonoBehaviour
         {
             currentPower = Mathf.MoveTowards(currentPower, 0, rampSpeed/2 * Time.deltaTime);
         }
-
         RPM = RPMCurve.Evaluate(currentPower) * RPMMult;
-        
     }
-
     public float GetRPM()
     {
         return RPM;
     }
-
     public float GetPower()
     {
         return currentPower;
     }
-
     public void StartStopEngine()
     {
         ignition = !ignition;

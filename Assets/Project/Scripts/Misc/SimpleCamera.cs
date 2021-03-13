@@ -1,15 +1,9 @@
-﻿
-
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-// Place the script in the Camera-Control group in the component menu
-[AddComponentMenu("Camera-Control/Smooth Follow CSharp")]
-
 public class SimpleCamera : MonoBehaviour
 {
-
     public Transform target;
     public List<Vector3> offsets = new List<Vector3>();
     public List<Vector3> lookOffsets = new List<Vector3>();
@@ -24,9 +18,7 @@ public class SimpleCamera : MonoBehaviour
             {
                 i = (i + 1) % offsets.Count;
             }
-
             Vector3 nextPos;
-
             if (Input.GetKey(KeyCode.C))
             {
                 nextPos = target.forward * 10 + target.position + target.TransformDirection(offsets[i]);
@@ -39,7 +31,5 @@ public class SimpleCamera : MonoBehaviour
             transform.position = nextPos;
             transform.LookAt(target.position + target.up * lookOffsets[i].y + target.right * -lookOffsets[i].x + target.forward * lookOffsets[i].z, target.up);
         }
-
-        
     }
 }

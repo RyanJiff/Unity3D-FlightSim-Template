@@ -35,10 +35,6 @@ public class LandingGear : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            extended = !extended;
-        }
 
         if (!extended)
         {
@@ -63,12 +59,22 @@ public class LandingGear : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// toggle if gear is extended
+    /// </summary>
+    public void ToggleGear()
+    {
+        extended = !extended;
+    }
     public void GetPosRot()
     {
         GottenRot = toGetTransform.localRotation;
         GottenPos = toGetTransform.localPosition;
     }
 
+    /// <summary>
+    /// instantly lower gear
+    /// </summary>
     public void GearDownInstant()
     {
         for (int i = 0; i < transforms.Count; i++)
@@ -79,6 +85,10 @@ public class LandingGear : MonoBehaviour
         
         extended = true;
     }
+
+    /// <summary>
+    /// instantly raise gear
+    /// </summary>
     public void GearUpInstant()
     {
         for (int i = 0; i < transforms.Count; i++)
