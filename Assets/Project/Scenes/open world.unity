@@ -708,12 +708,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 396509564306289005, guid: 58fad51c9400da74ea91372495b99bf1,
-        type: 3}
-      propertyPath: wing
-      value: 
-      objectReference: {fileID: 11400000, guid: 58f9c07cc5fb60b419af20276ffb7c59,
-        type: 2}
     - target: {fileID: 700183220448379826, guid: 58fad51c9400da74ea91372495b99bf1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -769,31 +763,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3908400555614288933, guid: 58fad51c9400da74ea91372495b99bf1,
+    - target: {fileID: 3610641168518808245, guid: 58fad51c9400da74ea91372495b99bf1,
         type: 3}
-      propertyPath: wing
-      value: 
-      objectReference: {fileID: 11400000, guid: 58f9c07cc5fb60b419af20276ffb7c59,
-        type: 2}
+      propertyPath: maxThrust
+      value: 3800
+      objectReference: {fileID: 0}
+    - target: {fileID: 3610641168518808245, guid: 58fad51c9400da74ea91372495b99bf1,
+        type: 3}
+      propertyPath: iddleInput
+      value: 0.09
+      objectReference: {fileID: 0}
     - target: {fileID: 4606290942689096097, guid: 58fad51c9400da74ea91372495b99bf1,
         type: 3}
       propertyPath: m_Name
       value: Cessna
-      objectReference: {fileID: 0}
-    - target: {fileID: 8237395297272038133, guid: 58fad51c9400da74ea91372495b99bf1,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.008726558
-      objectReference: {fileID: 0}
-    - target: {fileID: 8237395297272038133, guid: 58fad51c9400da74ea91372495b99bf1,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.999962
-      objectReference: {fileID: 0}
-    - target: {fileID: 8237395297272038133, guid: 58fad51c9400da74ea91372495b99bf1,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58fad51c9400da74ea91372495b99bf1, type: 3}
@@ -1196,9 +1179,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2092977348}
+  - component: {fileID: 2092977349}
   - component: {fileID: 2092977347}
   m_Layer: 0
-  m_Name: FPS limiter
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1231,6 +1215,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2092977349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2092977346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3290351ce108bce4f91bcced027489d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2123624032
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,6 +18,10 @@ public class Engine : MonoBehaviour
     [Space]
     public bool ignition = false;
     [Space]
+    public float fuelUsePerSecondAtMaxPower = 0.012f;
+    [Space]
+    public bool requireFuel = true;
+    [Space]
     public float maxThrust = 3000;
     public AnimationCurve thrustAirspeedCurve;
     public Transform engineTransform;
@@ -41,12 +45,14 @@ public class Engine : MonoBehaviour
     float currentPower = 0.0f;
 
     private Rigidbody rigid;
+    private FuelTank[] fuelTanks = null;
 
     const float msToKnots = 1.94384f;
 
     void Awake()
     {
         rigid = GetComponentInParent<Rigidbody>();
+        fuelTanks = GetComponents<FuelTank>();
     }
 
     void FixedUpdate()
@@ -71,11 +77,30 @@ public class Engine : MonoBehaviour
     {
         if (ignition)
         {
+            //power calculations
             currentPower = Mathf.MoveTowards(currentPower, Mathf.Max(iddleInput, throttleInput), rampSpeed * Time.deltaTime * Mathf.Abs(Mathf.Max(iddleInput, throttleInput) - currentPower));
         }
         else
         {
             currentPower = Mathf.MoveTowards(currentPower, 0, rampSpeed/2 * Time.deltaTime);
+        }
+        if (requireFuel)
+        {
+            //fuel calculations
+            fuelUsePerSecondAtMaxPower = Mathf.Abs(fuelUsePerSecondAtMaxPower) * -1;
+            bool allDry = true;
+            foreach (FuelTank f in fuelTanks)
+            {
+                f.ChangeAmount(fuelUsePerSecondAtMaxPower * currentPower * Time.deltaTime);
+                if (!f.IsDry())
+                {
+                    allDry = false;
+                }
+            }
+            if (allDry)
+            {
+                ignition = false;
+            }
         }
         RPM = RPMCurve.Evaluate(currentPower) * RPMMult;
     }
@@ -87,12 +112,21 @@ public class Engine : MonoBehaviour
     {
         return currentPower;
     }
-    public void StartStopEngine()
+    public void ToggleIgnition()
     {
         ignition = !ignition;
     }
     public bool IsOn()
     {
         return ignition;
+    }
+    public float GetFuelAmount()
+    {
+        float fuelAmount = 0f;
+        foreach(FuelTank f in fuelTanks)
+        {
+            fuelAmount += f.GetCurrentFuelAmount();
+        }
+        return fuelAmount;
     }
 }

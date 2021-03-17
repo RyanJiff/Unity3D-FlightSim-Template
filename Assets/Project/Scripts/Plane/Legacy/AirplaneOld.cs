@@ -182,7 +182,7 @@ public class AirplaneOld : MonoBehaviour
 
 			if (Input.GetKeyDown(KeyCode.I))
 			{
-				engine.StartStopEngine();
+				engine.ToggleIgnition();
 			}
 		}
 

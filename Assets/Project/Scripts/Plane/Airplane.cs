@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-public class Airplane : MonoBehaviour
+public class Airplane : MonoBehaviour, IControllable
 {
 	/*
 	 * Main airplane driver class
@@ -24,9 +24,6 @@ public class Airplane : MonoBehaviour
 	public Engine engine;
 	[Space]
 
-	[Header("Fueselage Stats")]
-	public float baseDrag = 0.01f;
-
 	[Header("Brakes")]
 	public WheelCollider[] brakeWheels;
 	public int brakeTorque;
@@ -42,13 +39,15 @@ public class Airplane : MonoBehaviour
 	public Transform centerOfMassTransform;
 
 	public Rigidbody Rigidbody { get; internal set; }
-	private LandingGear landingGear;
+	private LandingGear landingGear = null;
+	private FuelTank[] fuelTanks = null;
 
 	private bool yawDefined = false;
 
 	public float pitch;
 	public float roll;
 
+	// Inputs that are changed through external MonoBehaviours
 	private float _inputRoll = 0;
 	private float _inputPitch = 0;
 	private float _inputYaw = 0;
@@ -61,6 +60,7 @@ public class Airplane : MonoBehaviour
 	{
 		Rigidbody = GetComponent<Rigidbody>();
 		landingGear = GetComponent<LandingGear>();
+		fuelTanks = GetComponents<FuelTank>();
 
 		if (centerOfMassTransform)
 		{
@@ -222,11 +222,11 @@ public class Airplane : MonoBehaviour
 	/// <summary>
 	/// Send inputs to airplane
 	/// </summary>
-	public void SendInput(float pitch, float roll, float yaw, bool brake, float throttle)
+	public void SendInput(float y, float x, float z, bool brake, float throttle)
 	{
-		_inputPitch = pitch;
-		_inputRoll = roll;
-		_inputYaw = yaw;
+		_inputPitch = y;
+		_inputRoll = x;
+		_inputYaw = z;
 		_inputBrake = brake;
 		_inputThrottle = throttle;
 	}
@@ -261,7 +261,19 @@ public class Airplane : MonoBehaviour
     {
 		if (engine)
 		{
-			engine.StartStopEngine();
+			engine.ToggleIgnition();
 		}
     }
+	/// <summary>
+	/// return amount of fuel in all tanks
+	/// </summary>
+	public float GetFuelAmount()
+	{
+		float fuelAmount = 0f;
+		foreach (FuelTank f in fuelTanks)
+		{
+			fuelAmount += f.GetCurrentFuelAmount();
+		}
+		return fuelAmount;
+	}
 }

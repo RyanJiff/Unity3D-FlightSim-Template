@@ -1796,6 +1796,7 @@ GameObject:
   - component: {fileID: 8038808088140020706}
   - component: {fileID: 223410879465083006}
   - component: {fileID: 3610641168518808245}
+  - component: {fileID: 6790702700269083819}
   - component: {fileID: 500811927}
   m_Layer: 0
   m_Name: Cessna
@@ -1831,7 +1832,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4606290942689096097}
   serializedVersion: 2
-  m_Mass: 750
+  m_Mass: 700
   m_Drag: 0.01
   m_AngularDrag: 0
   m_UseGravity: 1
@@ -1858,7 +1859,6 @@ MonoBehaviour:
   aileronRight: {fileID: 6730448009233332918}
   rudder: {fileID: 325160951958704709}
   engine: {fileID: 3610641168518808245}
-  baseDrag: 0.01
   brakeWheels:
   - {fileID: 2032107217080702878}
   - {fileID: 7360238025164445382}
@@ -1869,10 +1869,8 @@ MonoBehaviour:
   maxSteerAngle: 20
   invertedSteering: 0
   centerOfMassTransform: {fileID: 4568728010257018326}
-  throttle: 0
   pitch: 0
   roll: 0
-  grounded: 1
   elevatorTrim: 0.2
 --- !u!114 &3610641168518808245
 MonoBehaviour:
@@ -1888,7 +1886,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   throttleInput: 0
   ignition: 1
-  maxThrust: 3500
+  fuelUsePerSecondAtMaxPower: 0.012
+  requireFuel: 1
+  maxThrust: 3800
   thrustAirspeedCurve:
     serializedVersion: 2
     m_Curve:
@@ -1945,6 +1945,20 @@ MonoBehaviour:
   engineAnimationMesh: {fileID: 1158851995573238807}
   currentThrust: 0
   currentPower: 0
+--- !u!114 &6790702700269083819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4606290942689096097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7874611a51b331d468e362cdf94324a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxCapacityLitres: 200
+  currentFuelAmountLitres: 100
 --- !u!114 &500811927
 MonoBehaviour:
   m_ObjectHideFlags: 0
