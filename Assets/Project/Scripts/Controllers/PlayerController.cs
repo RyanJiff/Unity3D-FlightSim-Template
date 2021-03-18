@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AirplaneController))]
-[RequireComponent(typeof(SimpleCamera))]
+[RequireComponent(typeof(CameraController))]
 [RequireComponent(typeof(PlayerGUI))]
 public class PlayerController : MonoBehaviour
 {
@@ -11,13 +11,13 @@ public class PlayerController : MonoBehaviour
      * Handles handing player control over a vehicle.
      */
     AirplaneController myController = null;
-    SimpleCamera myCameraController = null;
+    CameraController myCameraController = null;
     PlayerGUI myPlayerGUI = null;
 
     private void Awake()
     {
         myController = GetComponent<AirplaneController>();
-        myCameraController = GetComponent<SimpleCamera>();
+        myCameraController = GetComponent<CameraController>();
         myPlayerGUI = GetComponent<PlayerGUI>();
     }
 

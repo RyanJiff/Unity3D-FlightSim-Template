@@ -71,12 +71,15 @@ public class GameManager : MonoBehaviour
     /// </summary>
     void InitSession()
     {
+        //clea current session
         this.currentSession = null;
+        
         if (initialSessionData == null)
         {
             //if there is no initial session data it means we are not going to a session but probably to a menu.
             return;
         }
+        
         currentSession = new SessionData();
 
         //init world and get spawn location
