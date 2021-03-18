@@ -88,4 +88,9 @@ public class AirplaneController : MonoBehaviour
 		}
 		else return 0;
 	}
+
+	public void GiveControl(Airplane a)
+    {
+		airplane = a;
+    }
 }
