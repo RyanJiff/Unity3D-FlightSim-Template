@@ -1766,6 +1766,7 @@ GameObject:
   - component: {fileID: 8038808088140020706}
   - component: {fileID: 223410879465083006}
   - component: {fileID: 3610641168518808245}
+  - component: {fileID: 5368048488390825818}
   - component: {fileID: 6790702700269083819}
   - component: {fileID: 500811927}
   m_Layer: 0
@@ -1783,7 +1784,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4606290942689096097}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.5756063, y: 2.26, z: 9.850586}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4568728010257018326}
@@ -1858,7 +1859,7 @@ MonoBehaviour:
   ignition: 1
   fuelUsePerSecondAtMaxPower: 0.012
   requireFuel: 1
-  maxThrust: 3800
+  maxThrust: 3500
   thrustAirspeedCurve:
     serializedVersion: 2
     m_Curve:
@@ -1924,6 +1925,22 @@ MonoBehaviour:
   engineAnimationMesh: {fileID: 1158851995573238807}
   currentThrust: 0
   currentPower: 0
+--- !u!114 &5368048488390825818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4606290942689096097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03d827c41d7a7da4d98aea0df194f62d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  engineTransform: {fileID: 8810498646979765474}
+  clip: {fileID: 8300000, guid: 37b2c6171cdcc8f4b9354d41224e27fe, type: 3}
+  pitchFactor: 0.6
+  iddlePitch: 0.4
 --- !u!114 &6790702700269083819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1936,7 +1953,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7874611a51b331d468e362cdf94324a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxCapacityLitres: 200
+  maxCapacityLitres: 100
   currentFuelAmountLitres: 100
 --- !u!114 &500811927
 MonoBehaviour:

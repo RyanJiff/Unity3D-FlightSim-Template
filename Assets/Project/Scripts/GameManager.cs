@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
         //clea current session
         this.currentSession = null;
         
-        if (initialSessionData == null)
+        if (!initialSessionData.worldPrefab)
         {
             //if there is no initial session data it means we are not going to a session but probably to a menu.
             return;

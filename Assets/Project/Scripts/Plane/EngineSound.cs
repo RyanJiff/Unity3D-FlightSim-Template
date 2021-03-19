@@ -41,7 +41,7 @@ public class EngineSound : MonoBehaviour
         }
         if (engine.IsOn())
         {
-            audioSource.volume = Mathf.Lerp(0.1f, 1.0f, engine.GetPower());
+            audioSource.volume = Mathf.Lerp(0.3f, 1.0f, engine.GetPower());
             audioSource.pitch = (engine.GetPower()) * pitchFactor + iddlePitch;
         }
         else
