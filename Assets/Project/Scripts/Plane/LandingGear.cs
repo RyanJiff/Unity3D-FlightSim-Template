@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class LandingGear : MonoBehaviour
 {
+    /*
+     * Landing gear script resposible for handling landing gear logic
+     */
+
+
     public List<Transform> transforms = new List<Transform>();
     public List<WheelCollider> wheelColliders = new List<WheelCollider>();
 
@@ -26,11 +31,11 @@ public class LandingGear : MonoBehaviour
 
     public float speed = 0.5f;
 
-    private AirplaneOld airplane;
+    private Airplane airplane;
 
     void Start()
     {
-        airplane = GetComponent<AirplaneOld>();
+        airplane = GetComponent<Airplane>();
     }
 
     void Update()
