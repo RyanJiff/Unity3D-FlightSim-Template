@@ -234,7 +234,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialSessionData:
-    worldPrefab: {fileID: 1947020542006414029, guid: ee6dfd1db765eab408a6a57af0224a62,
+    worldPrefab: {fileID: 8674277433963951985, guid: 189d34ad7154fa448a3ab4074a7b814b,
       type: 3}
     playerAirplanePrefab: {fileID: 4606290942689096097, guid: 58fad51c9400da74ea91372495b99bf1,
       type: 3}
