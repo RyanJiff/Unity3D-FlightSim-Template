@@ -8,7 +8,15 @@ public class PlayerGUI : MonoBehaviour
 
 	bool showControls = false;
 
-	private void OnGUI()
+	private WorldManager world = null;
+
+    void Start()
+    {
+		world = GameObject.FindObjectOfType<WorldManager>();
+    }
+
+
+    private void OnGUI()
 	{
 		GUIStyle style = new GUIStyle();
 		style.fontSize = 16;
@@ -20,7 +28,10 @@ public class PlayerGUI : MonoBehaviour
 			GUI.Label(new Rect(10, 40, 300, 20), string.Format("Speed: {0:0} kn", airplane.AirSpeed()), style);
 			GUI.Label(new Rect(10, 60, 300, 20), string.Format("Throttle: {0:0}%", airplane.engine.throttleInput * 100.0f), style);
 			GUI.Label(new Rect(10, 80, 300, 20), string.Format("RPM: {0:0}", airplane.engine.GetRPM()), style);
-			GUI.Label(new Rect(10, 100, 300, 20), string.Format("Altitude: {0:0} Feet", airplane.transform.position.y * 3.28084f), style);
+			if (world)
+			{
+				GUI.Label(new Rect(10, 100, 300, 20), string.Format("Altitude: {0:0} Feet", Mathf.Abs(world.transform.position.y - airplane.transform.position.y) * 3.28084f), style);
+			}
 			GUI.Label(new Rect(10, 120, 300, 20), string.Format("VSI: {0:0} Feet Per Minute", airplane.VerticalSpeed()), style);
 			GUI.Label(new Rect(10, 140, 300, 20), string.Format("Elevator Trim: {0:0.00} ", airplane.elevatorTrim), style);
 			GUI.Label(new Rect(10, 160, 300, 20), string.Format("Pitch: {0:0}", airplane.pitch), style);

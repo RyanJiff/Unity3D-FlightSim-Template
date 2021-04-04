@@ -236,7 +236,7 @@ MonoBehaviour:
   initialSessionData:
     worldPrefab: {fileID: 8674277433963951985, guid: 189d34ad7154fa448a3ab4074a7b814b,
       type: 3}
-    playerAirplanePrefab: {fileID: 4606290942689096097, guid: 58fad51c9400da74ea91372495b99bf1,
+    playerAirplanePrefab: {fileID: 5693003918138654228, guid: 4d5aa8e7cc2ae654781abb7252c58b26,
       type: 3}
     spawnLocationIndex: 0
   freeFlightScene: free_flight

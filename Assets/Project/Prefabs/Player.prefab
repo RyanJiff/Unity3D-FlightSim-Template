@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2602906786924256766}
   - component: {fileID: 497740137948623642}
   - component: {fileID: 2819678748978525263}
+  - component: {fileID: 1155993939}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -80,6 +81,8 @@ MonoBehaviour:
   - {x: 0, y: 3, z: 0}
   lookOffsets:
   - {x: 0, y: 3, z: 0}
+  distances:
+  - 15
 --- !u!114 &2819678748978525263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,6 +95,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 328c134d5b58ae949aa4e346f4c50df9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1155993939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2602906786924256754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30d1ffb392ec25d4f91155c18ef91472, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ReferenceObject: {fileID: 2602906786924256765}
+  Threshold: 2000
+  Use2DDistance: 0
+  UpdateAllScenes: 1
+  UpdateParticles: 1
+  UpdateTrailRenderers: 1
+  UpdateLineRenderers: 1
 --- !u!1 &2602906788420470406
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,7 +171,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 10000
+  far clip plane: 15000
   field of view: 60
   orthographic: 0
   orthographic size: 5

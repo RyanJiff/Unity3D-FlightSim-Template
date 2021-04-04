@@ -11,6 +11,7 @@ public class CameraController : MonoBehaviour
     public Transform target;
     public List<Vector3> offsets = new List<Vector3>();
     public List<Vector3> lookOffsets = new List<Vector3>();
+    public List<float> distances = new List<float>();
 
     int i = 0;
 
@@ -25,11 +26,11 @@ public class CameraController : MonoBehaviour
             Vector3 nextPos;
             if (Input.GetKey(KeyCode.C))
             {
-                nextPos = target.forward * 10 + target.position + target.TransformDirection(offsets[i]);
+                nextPos = target.forward * distances[i] + target.position + target.TransformDirection(offsets[i]);
             }
             else
             {
-                nextPos = target.forward * -10 + target.position + target.TransformDirection(offsets[i]);
+                nextPos = target.forward * -distances[i] + target.position + target.TransformDirection(offsets[i]);
             }
 
             transform.position = nextPos;
